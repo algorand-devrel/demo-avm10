@@ -1,4 +1,4 @@
-# TEALScript Project
+# TEALScript Project - BLS Signature Verification
 
 ## Documentation
 
