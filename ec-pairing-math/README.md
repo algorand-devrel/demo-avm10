@@ -1,5 +1,10 @@
 # TEALScript Project - BLS Signature Verification
 
+## Disclaimer
+Please note that this is just an illustrative example.
+This is based on [this Internet Draft](https://www.ietf.org/archive/id/draft-irtf-cfrg-bls-signature-05.html) which, at this stage, is to be taken only as work in progress.
+Also, [this python implementation](https://github.com/algorand/bls_sigs_ref) was used to generate test cases.
+
 ## Documentation
 
 For TEALScript documentation, go to https://tealscript.algo.xyz
