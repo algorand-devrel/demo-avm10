@@ -1,6 +1,7 @@
 import { describe, test, expect, beforeAll, beforeEach } from '@jest/globals';
 import { algorandFixture } from '@algorandfoundation/algokit-utils/testing';
 import { BoxManipulationClient } from '../contracts/clients/BoxManipulationClient';
+import {ensureFunded, microAlgos} from "@algorandfoundation/algokit-utils";
 
 const fixture = algorandFixture();
 
@@ -23,19 +24,35 @@ describe('BoxManipulation', () => {
     );
 
     await appClient.create.createApplication({});
+    await appClient.appClient.fundAppAccount({
+      amount: microAlgos(5_000_000),
+      sender: testAccount,
+    });
+    await appClient.bootstrap(
+      {},
+      {
+        boxes: ['spliceableBox', 'resizeableBox'],
+      }
+    );
   });
 
-  test('sum', async () => {
-    const a = 13;
-    const b = 37;
-    const sum = await appClient.doMath({ a, b, operation: 'sum' });
-    expect(sum.return?.valueOf()).toBe(BigInt(a + b));
+  test('splice', async () => {
+    const splicedBox = await appClient.spliceBox(
+      {},
+      {
+        boxes: ['spliceableBox'],
+      }
+    );
+    expect(splicedBox.return).toBe('This is some new content.');
   });
 
-  test('difference', async () => {
-    const a = 13;
-    const b = 37;
-    const diff = await appClient.doMath({ a, b, operation: 'difference' });
-    expect(diff.return?.valueOf()).toBe(BigInt(a >= b ? a - b : b - a));
+  test('resize', async () => {
+    const resizedBox = await appClient.resizeBox(
+      {},
+      {
+        boxes: ['resizeableBox'],
+      }
+    );
+    expect(resizedBox.return).toBe('This is my collection of dots ..........');
   });
 });

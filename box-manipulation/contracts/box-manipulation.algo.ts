@@ -2,46 +2,22 @@ import { Contract } from '@algorandfoundation/tealscript';
 
 // eslint-disable-next-line no-unused-vars
 class BoxManipulation extends Contract {
-  /**
-   * Calculates the sum of two numbers
-   *
-   * @param a
-   * @param b
-   * @returns The sum of a and b
-   */
-  private getSum(a: number, b: number): number {
-    return a + b;
+  spliceableBox = BoxKey<bytes>({ key: 'spliceableBox' });
+
+  resizeableBox = BoxKey<bytes>({ key: 'resizeableBox' });
+
+  bootstrap(): void {
+    this.spliceableBox.value = 'This is some old content.';
+    this.resizeableBox.value = 'This is my collection of dots ....................'; // 20 dots total
   }
 
-  /**
-   * Calculates the difference between two numbers
-   *
-   * @param a
-   * @param b
-   * @returns The difference between a and b.
-   */
-  private getDifference(a: number, b: number): number {
-    return a >= b ? a - b : b - a;
+  spliceBox(): string {
+    this.spliceableBox.splice(len('This is some '), 3, 'new');
+    return this.spliceableBox.value;
   }
 
-  /**
-   * A method that takes two numbers and does either addition or subtraction
-   *
-   * @param a The first number
-   * @param b The second number
-   * @param operation The operation to perform. Can be either 'sum' or 'difference'
-   *
-   * @returns The result of the operation
-   */
-  doMath(a: number, b: number, operation: string): number {
-    let result: number;
-
-    if (operation === 'sum') {
-      result = this.getSum(a, b);
-    } else if (operation === 'difference') {
-      result = this.getDifference(a, b);
-    } else throw Error('Invalid operation');
-
-    return result;
+  resizeBox(): string {
+    this.resizeableBox.resize(len('This is my collection of dots ') + 10);
+    return this.resizeableBox.value;
   }
 }
