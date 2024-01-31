@@ -1,0 +1,33 @@
+{
+  "name": "EcPairingMath",
+  "desc": "",
+  "methods": [
+    {
+      "name": "verify",
+      "args": [
+        {
+          "name": "publicKeyPoint",
+          "type": "byte[]"
+        },
+        {
+          "name": "clearTextPoint",
+          "type": "byte[]"
+        },
+        {
+          "name": "signaturePoint",
+          "type": "byte[]"
+        }
+      ],
+      "returns": {
+        "type": "bool"
+      }
+    },
+    {
+      "name": "createApplication",
+      "args": [],
+      "returns": {
+        "type": "void"
+      }
+    }
+  ]
+}
